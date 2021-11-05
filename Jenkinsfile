@@ -59,5 +59,21 @@ build-${BUILD_NUMBER} \
 """
 }
 }
+stage('Deploy - Production') {
+environment {
+APP_NAMESPACE = "fxuags-shopping-cart-production"
+QUAY = credentials('QUAY_USER')
+}
+input { message 'Deploy to production?' }
+steps {
+sh """
+oc set image \
+deployment ${DEPLOYMENT_PRODUCTION} \
+shopping-cart-production=quay.io/${QUAY_USR}/do400-deployingenvironments:
+build-${BUILD_NUMBER} \
+-n ${APP_NAMESPACE} --record
+"""
+}
+}
 }
 }
