@@ -46,7 +46,7 @@ archiveArtifacts 'target/*.jar'
         }
 stage('Deploy - Stage') {
 environment {
-APP_NAMESPACE = "fxuags-shopping-cart-stage"
+APP_NAMESPACE = "${RHT_OCP4_DEV_USER}-shopping-cart-stage"
 QUAY = credentials('QUAY_USER')
 }
 steps {
@@ -61,7 +61,7 @@ build-${BUILD_NUMBER} \
 }
 stage('Deploy - Production') {
 environment {
-APP_NAMESPACE = "fxuags-shopping-cart-production"
+APP_NAMESPACE = "${RHT_OCP4_DEV_USER}-shopping-cart-production"
 QUAY = credentials('QUAY_USER')
 }
 input { message 'Deploy to production?' }
